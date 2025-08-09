@@ -1,39 +1,35 @@
-🚀 Evoluindo meu aprendizado em Arquitetura de Dados com o Projeto Medalhão! 🏗️
+# 🏗️ Projeto Medalhão — Arquitetura de Dados em Camadas
 
-Estou animado para compartilhar meu mais recente projeto, onde implementei uma arquitetura de dados em camadas (Bronze → Silver → Gold) para manipulação e visualização de dados de países.
-Este projeto não só me ajudou a aprofundar meus conhecimentos em ETL (Extração, Transformação e Carga), mas também a trabalhar com ferramentas modernas de análise de dados.
+🚀 Evoluindo meu aprendizado em Arquitetura de Dados com o Projeto Medalhão! Este projeto implementa uma arquitetura em camadas (Bronze → Silver → Gold) para manipulação e visualização de dados de países, utilizando a API [restcountries.com](https://restcountries.com). Além de consolidar conceitos de ETL (Extração, Transformação e Carga), o projeto explora ferramentas modernas de análise e visualização de dados.
 
-🔗Fases do Projeto:
-Camada Bronze — Raw / Bruta:
+Na camada Bronze, os dados são coletados diretamente da API e salvos em formato JSON, sem modificações. Utilizei as bibliotecas `requests` e `json` para essa etapa. Um exemplo de entrada seria:
 
-Extração: Coletamos dados diretamente da API restcountries.com e os salvamos em formato JSON, sem modificações.
-Bibliotecas Utilizadas: requests, json
-Exemplo de entrada:
+```json
 {
-"capital": ["Beijing"],
-...
-Camada Silver — Limpeza e Padronização:
+  "capital": ["Beijing"],
+  "languages": {
+    "zh": "Chinese"
+  }
+}
+Na camada Silver, os dados passam por limpeza e padronização. Com pandas e pyarrow, converti a capital para string, transformei os idiomas em uma lista e calculei o número de idiomas falados. Os dados foram salvos em formato .parquet, que é colunar e otimizado para armazenamento. Um exemplo de saída seria
 
-Transformação: Utilizando Python e Pandas, extraímos a capital como string, convertendo os idiomas para uma lista e calculando o número de idiomas falados.
-Dados salvos em formato Parquet: Um formato colunar otimizado para armazenamento.
-Bibliotecas Utilizadas: pandas, pyarrow
-Exemplo de saída:
+```json
 {
-"capital": "Beijing",
-...
-Camada Gold — Agregações e Insights:
+  "capital": "Beijing",
+  "languages": ["Chinese"],
+  "language_count": 1
+}
 
-Visões Analíticas: Criamos duas visualizações:
-languages_most_spoken.parquet: Idiomas mais falados.
-capitals_by_language_count.parquet: Capitais com mais idiomas oficiais.
-**Dados prontos para visualização e análises de negócio.
-Bibliotecas Utilizadas: pandas
-📊 Visualização com Streamlit:
+Na camada Gold, foram geradas visões analíticas com foco em insights. Criei dois arquivos: languages_most_spoken.parquet, que mostra os idiomas mais falados, e capitals_by_language_count.parquet, que apresenta as capitais com mais idiomas oficiais. Tudo pronto para visualização e análises de negócio.
+Para a visualização, desenvolvi um dashboard interativo com streamlit, que permite explorar os idiomas mais falados e as capitais com mais idiomas oficiais em tempo real.
 
-Desenvolvi um dashboard interativo que permite visualizar os idiomas mais falados e as capitais com mais idiomas oficiais, além de interagir com os dados em tempo real.
-Biblioteca Utilizada: streamlit
-Ferramentas Utilizadas:
-Extração: requests, json
-Transformação: pandas, pyarrow
-Armazenamento: .parquet (colunar)
-Visualização: streamlit
+🧰 Bibliotecas Utilizadas
+| Etapa | Bibliotecas | 
+| Extração | requests, json | 
+| Transformação | pandas, pyarrow | 
+| Armazenamento | .parquet (formato colunar) | 
+| Visualização | streamlit | 
+
+
+
+Este projeto foi essencial para consolidar conceitos de arquitetura de dados, boas práticas de ETL e visualização interativa. Uma base sólida para projetos mais robustos em Data Engineering e Analytics!
